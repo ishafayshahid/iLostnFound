@@ -1,0 +1,124 @@
+{% extends "common/layout.html" %}
+{% set active_page = item_type %}
+
+{% block title %}
+    {{ item.iname }}
+{% endblock %}
+{% block body %}
+
+<main id="main">
+    <!-- ======= Lost Item Section ======= -->
+    <section id="lost_item" class="lost-item recent-blog-posts">
+        <div class="container">
+            <div class="row">
+                <!-- ======= Blog Single Section ======= -->
+                <section id="blog" class="blog">
+                    <div class="container" data-aos="fade-up">
+                        <div class="row">
+                            <div class="col-lg-8 entries">
+                                <article class="entry entry-single">
+                                    {% if item.ipic and item.ipic != "no_file" %}
+                                    <div class="entry-img">
+                                        <img src="{{ url_for('static', filename='uploads/' + item.ipic) }}" class="img-fluid mx-auto d-block" alt="{{ item.iname }}">
+                                    </div>
+                                    {% endif %}
+                                    <h2 class="entry-title">
+                                        {{ item.iname }}
+                                    </h2>
+                                    <div class="entry-meta">
+                                        <ul>
+                                            <li class="d-flex align-items-center"><i class="bi bi-geo-alt-fill"></i> <span>{{ item.iloc }}</span></li>
+                                            <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <span>{{ item.date_created.strftime("%a, %d %b %Y") }}</span></li>
+                                        </ul>
+                                    </div>
+                                    <div class="entry-content">
+                                        <p>
+                                            {{ item.idesc }}
+                                        </p>
+
+                                        <blockquote>
+                                            {% if item_type=='found' %}
+                                                <p>
+                                                    Found this item in or nearby {{ item.iloc }} by an upstanding citizen on {{ item.date_created.strftime("%a, %d %b %Y") }}
+                                                </p>
+                                            {% elif item_type=='lost' %}
+                                                <p>
+                                                    Lost this item in or nearby {{ item.iloc }} by an upstanding citizen on {{ item.date_created.strftime("%a, %d %b %Y") }}
+                                                </p>
+                                            {% endif %}
+                                        </blockquote>
+                                        {% if item_type == 'found' %}
+                                            <div class="float-end">
+                                                {% if session['email'] != item.uploader_email %}
+                                                    <a href="{{ url_for('claim_item', item_type=active_page, id=item.sno) }}" class="readmore mt-auto btn btn-primary"><span>II would like to claim this item.</span><i class="bi bi-arrow-right"></i></a>
+                                                {% else %}
+                                                    <p>You can't claim your own item.</p>
+                                                {% endif %}
+                                            </div>
+                                        {% endif %}
+
+                                        {% if item_type == 'lost' %}
+                                            <div class="float-end">
+                                                {% if session['email'] == item.uploader_email %}
+                                                    <p>You can't claim your own item.</p>
+                                                {% else %}
+                                                    <a href="{{ url_for('claim_item', item_type=active_page, id=item.sno) }}" class="readmore mt-auto btn btn-primary"><span>I would like to claim this item.</span><i class="bi bi-arrow-right"></i></a>
+                                                {% endif %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="entry-footer">
+                                        <h5 class="entry-title">
+                                            Share this {{ item_type }} item
+                                        </h5>
+                                        <a href="mailto:?subject={{ item.iname }}">
+                                            <i class="bi bi-envelope"></i>
+                                            <ul class="cats">
+                                                <li>Email</li>
+                                            </ul>
+                                        </a>
+                                    </div>
+                                </article><!-- End blog entry -->
+                                <div class="blog-author p-4">
+                                    <div>
+                                        <h4>{{ user.fname }} {{ user.lname }}</h4>
+                                        <div class="social-links">
+                                            {% if user.fb_link %}
+                                            <a href="{{ user.fb_link }}" target="_blank"><i class="bi bi-twitter"></i></a>
+                                            {% endif %}
+                                            {% if user.ig_link %}
+                                            <a href="{{ user.ig_link }}" target="_blank"><i class="bi bi-facebook"></i></a>
+                                            {% endif %}
+                                            {% if user.tw_link %}
+                                            <a href="{{ user.tw_link }}" target="_blank"><i class="biu bi-instagram"></i></a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div><!-- End blog author bio -->
+                            </div><!-- End blog entries list -->
+                            <div class="col-lg-4">
+                                <div class="sidebar">
+                                    <h3 class="sidebar-title">Search</h3>
+                                    <div class="sidebar-item search-form">
+                                        <form action="/search" method="post">
+                                            <input type="text" placeholder="Search" aria-label="Search" name="search">
+                                            <button type="submit"><i class="bi bi-search"></i></button>
+                                        </form>
+                                    </div><!-- End sidebar search formn-->
+                                    <h3 class="sidebar-title">Categories</h3>
+                                    <div class="sidebar-item categories">
+                                        <ul>
+                                            <li><a href="{{ url_for('lost') }}">Lost <span>({{ t_lost_items }})</span></a></li>
+                                            <li><a href="{{ url_for('found') }}">Found <span>({{ t_found_items }})</span></a></li>
+                                        </ul>
+                                    </div><!-- End sidebar categories-->
+                                </div><!-- End sidebar -->
+                            </div><!-- End blog sidebar -->
+                        </div>
+                    </div>
+                </section><!-- End Blog Single Section -->
+            </div>
+        </div>
+    </section><!-- End Lost Item Section -->
+</main><!-- End #main -->
+{% endblock %}

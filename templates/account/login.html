@@ -1,0 +1,50 @@
+{% extends "common/layout.html" %}
+{% set active_page = 'login' %}
+
+{% block title %} Login {% endblock %}
+{% block body %}
+
+<main id="main">
+<!-- ======= Login Section ======= -->
+    <section id="login" class="login contact">
+        <div class="container">
+            <div class="row">
+
+          <div class="col-lg-6">
+            <img src="{{url_for('static', filename='images/login.jpg')}}" class="img-fluid" alt="">
+          </div>
+
+          <div class="col-lg-6">
+            <div class="row align-self-center gy-4">
+              <form action="" method="post" class="php-email-form">
+                  <div class="row gy-4">
+                      <div class="section-header ">
+                        <p>Login</p>
+                      </div>
+                      <div class="col-md-12">
+                        <input type="email" class="form-control" name="email" placeholder="Email" required>
+                      </div>
+                      <div class="col-md-12">
+                        <input type="password" class="form-control" name="password" placeholder="Password" required>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="remember-me">
+                          <input class="form-check-input" type="checkbox" value="" id="remember_me">
+                          <label class="form-check-label" for="remember_me">
+                            Remember Me
+                          </label>
+                        </div>
+                      </div>
+                      <div class="col-md-12 text-center">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                      </div>
+                  </div>
+            </form>
+            </div>
+          </div>
+
+        </div> <!-- / row -->
+        </div>
+    </section><!-- End Login Section -->
+</main><!-- End #main -->
+{% endblock %}

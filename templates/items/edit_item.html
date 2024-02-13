@@ -1,0 +1,46 @@
+{% extends "common/layout.html" %}
+{% set active_page = 'update_' + item_status + '_item' %}
+
+{% block title %} Edit {{item_status}} item {% endblock %}
+{% block body %}
+
+<main id="main">
+    <!-- ======= Add Item Section ======= -->
+    <section id="add_item" class="add-item contact">
+        <div class="container">
+            {% with block_name="tab_start" %}
+            {% include "account/account_tab.html" %}
+            {% endwith %}
+            <form action="{{ request.path }}" method="post" enctype="multipart/form-data" class="php-email-form">
+                <div class="row gy-4">
+                    <div class="col-md-12">
+                        <label for="iname">Item Name</label>
+                        <input type="text" class="form-control" id="iname" name="iname" value="{{ item.iname }}" required>
+                    </div>
+                    <div class="col-md-12">
+                        {% if item.ipic and item.ipic != "no_file" %}
+                        <img src="{{ url_for('static', filename='uploads/' + item.ipic) }}" width="200">
+                        <a href="{{ url_for('delete_image', item_type=item_status, id=item.sno) }}">Delete Image</a>
+                        {% else %}
+                            <label for="ipic">Item Image</label>
+                            <input type="file" class="form-control" id="ipic" name="ipic">
+                        {% endif %}
+                    </div>
+                    <div class="col-md-12">
+                        <label for="idesc">Item Description</label>
+                        <textarea class="form-control" id="idesc" name="idesc" required>{{ item.idesc }}</textarea>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="iloc">Location</label>
+                        <input type="text" class="form-control" id="iloc" name="iloc" value="{{ item.iloc }}" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+            {% with block_name="tab_end" %}
+            {% include "account/account_tab.html" %}
+            {% endwith %}
+        </div>
+    </section><!-- End Add Item Section -->
+</main><!-- End #main -->
+{% endblock %}

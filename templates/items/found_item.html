@@ -1,0 +1,45 @@
+{% extends "common/layout.html" %}
+{% set active_page = 'found' %}
+
+{% block title %} Found {% endblock %}
+{% block body %}
+
+<main id="main">
+  <!-- ======= Found Item Section ======= -->
+  <section id="found_item" class="found-item recent-blog-posts">
+    <div class="container">
+      <div class="row">
+        {% for item in items %}
+        <div class="col-lg-3 mb-4">
+          <a href="{{ url_for('view_lost_n_found_item', item_type=active_page, id=item.sno) }}">
+            <div class="post-box">
+              <div class="post-img">
+                  {% if item.ipic and item.ipic != "no_file" %}
+                      <img src="{{ url_for('static', filename='uploads/' + item.ipic) }}" class="img-fluid" alt="{{ item.iname }}">
+                  {% else %}
+                      <img src="{{url_for('static', filename='images/default-image.jpg')}}" class="img-fluid">
+                  {% endif %}
+              </div>
+              <div class="row">
+                <div class="col post-date-loc text-start">{{ item.iloc }}</div>
+                <div class="col post-date-loc text-end">{{ item.date_created.strftime("%a, %d %b %Y") }}</div>
+              </div>
+              <h3 class="post-title">{{ item.iname }}</h3>
+              {% if session['email'] != item.uploader_email %}
+                <a href="{{ url_for('claim_item', item_type=active_page, id=item.sno) }}" class="readmore mt-auto"><span>It's Mine</span><i class="bi bi-arrow-right"></i></a>
+              {% else %}
+                <p>You can't claim your own item.</p>
+              {% endif %}
+            </div>
+          </a>
+        </div>
+        {% else %}
+        <div class="col-lg-12">
+            <p>No items found.</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section><!-- End Found Item Section -->
+</main><!-- End #main -->
+{% endblock %}

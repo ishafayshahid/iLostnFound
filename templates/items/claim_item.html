@@ -1,0 +1,132 @@
+{% extends "common/layout.html" %}
+{% set active_page = 'claim_item' %}
+
+{% block title %}
+{{ item.iname }}
+{% endblock %}
+{% block body %}
+
+<main id="main">
+    <!-- ======= Lost Item Section ======= -->
+    <section id="lost_item" class="lost-item recent-blog-posts">
+        <div class="container">
+            <div class="row">
+                <!-- ======= Blog Single Section ======= -->
+                <section id="blog" class="blog">
+                    <div class="container" data-aos="fade-up">
+                        <div class="row">
+                            <div class="col-lg-8 entries">
+                                <article class="entry entry-single">
+                                    <h2 class="entry-title">
+                                        {{ item.iname }}
+                                    </h2>
+                                    <div class="entry-meta">
+                                        <ul>
+                                            <li class="d-flex align-items-center"><i class="bi bi-geo-alt-fill"></i> <span>{{ item.iloc }}</span></li>
+                                            <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <span>{{ item.date_created.strftime("%a, %d %b %Y") }}</span></li>
+                                        </ul>
+                                    </div>
+                                    <div class="entry-content">
+                                        <p>
+                                            {{ item.idesc }}
+                                        </p>
+                                        <blockquote>
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    {% if item.ipic and item.ipic != "no_file" %}
+                                                    <div class="entry-img">
+                                                        <img src="{{ url_for('static', filename='uploads/' + item.ipic) }}" class="img-fluid mx-auto d-block" alt="{{ item.iname }}">
+                                                    </div>
+                                                    {% else %}
+                                                        <img src="{{url_for('static', filename='images/default-image.jpg')}}" class="img-fluid">
+                                                    {% endif %}
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    {% if item_type=='found' %}
+                                                    <p class="ms-4">
+                                                        Found this item in or nearby {{ item.iloc }} by an upstanding citizen on {{ item.date_created.strftime("%a, %d %b %Y") }}
+                                                    </p>
+                                                    {% elif item_type=='lost' %}
+                                                    <p class="ms-4">
+                                                        Lost this item in or nearby {{ item.iloc }} by an upstanding citizen on {{ item.date_created.strftime("%a, %d %b %Y") }}
+                                                    </p>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </blockquote>
+                                    </div>
+                                </article><!-- End blog entry -->
+                                <div class="blog-comments">
+                                    <div class="reply-form">
+                                    {% if item_type == 'found' %}
+                                    <h4>
+                                        Please state why this item is yours.
+                                    </h4>
+                                    <p>
+                                        Please provide specific details about the item which dedicate that is yours.
+                                        This will help the finder confirm your ownership. If possible, share additional
+                                        information regarding the location and time of when the item was lost.
+                                        However, please exercise caution when sharing personal details.
+                                    </p>
+                                    {% endif %}
+
+                                    {% if item_type == 'lost' %}
+                                    <h4>
+                                        Where did you find this item?
+                                    </h4>
+                                    <p>
+                                        Please describe as much as details of the item, so the owner can recognise the
+                                        item. And if possible provide as much information as possible about where you
+                                        found the item (e.g. time and place). Be careful sharing personal details.
+                                    </p>
+                                    {% endif %}
+                                    <form action="{{request.path}}" method="post" class="php-email-form">
+                                        <div class="row">
+                                            <div class="col-md-6 form-group">
+                                                <input name="name" type="text" class="form-control" placeholder="Your Name*" required>
+                                            </div>
+                                            <div class="col-md-6 form-group">
+                                                <input name="email" type="text" class="form-control" placeholder="Your Email*" required>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col form-group">
+                                                <textarea name="message" class="form-control" placeholder="Message*" required></textarea>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Submit my claim</button>
+                                    </form>
+                                </div>
+                                </div>
+                            </div><!-- End blog entries list -->
+                            <div class="col-lg-4">
+
+                                <div class="sidebar">
+
+                                    <h3 class="sidebar-title">Search</h3>
+                                    <div class="sidebar-item search-form">
+                                        <form action="/search" method="post">
+                                            <input type="text" placeholder="Search" aria-label="Search" name="search">
+                                            <button type="submit"><i class="bi bi-search"></i></button>
+                                        </form>
+                                    </div><!-- End sidebar search formn-->
+
+                                    <h3 class="sidebar-title">Categories</h3>
+                                    <div class="sidebar-item categories">
+                                        <ul>
+                                            <li><a href="{{ url_for('lost') }}">Lost <span>({{ t_lost_items }})</span></a></li>
+                                            <li><a href="{{ url_for('found') }}">Found <span>({{ t_found_items }})</span></a></li>
+                                        </ul>
+                                    </div><!-- End sidebar categories-->
+
+                                </div><!-- End sidebar -->
+
+                            </div><!-- End blog sidebar -->
+                        </div>
+                    </div>
+                </section><!-- End Blog Single Section -->
+            </div>
+        </div>
+    </section><!-- End Lost Item Section -->
+</main><!-- End #main -->
+{% endblock %}

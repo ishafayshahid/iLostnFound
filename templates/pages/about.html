@@ -1,0 +1,41 @@
+{% extends "common/layout.html" %}
+{% set active_page = 'about' %}
+
+{% block title %} About {% endblock %}
+{% block body %}
+
+<main id="main">
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+        <div class="container">
+            <img src="{{url_for('static', filename='/images/about.jpg')}}" class="rounded mx-auto d-block" alt="...">
+
+            <p class="text-justify">
+                At iLost_n_Found, we understand how frustrating it can be to lose your personal belongings or find something without
+                knowing whom it belongs to. That's why we created this platform—to connect lost items with their rightful owners and
+                reunite people with their cherished possessions.
+            </p>
+            <h2>How It Works:</h2>
+            <p class="text-justify">
+                iLost_n_Found operates on a user-friendly interface that allows you to easily report a lost item or search for something you have misplaced. Here's how our platform works:
+                <br><br>
+                <strong>Report a Found Item:</strong><br>
+                If you've found an item and would like to help reunite it with its owner, iLost_n_Found provides a simple and efficient way to report a found item. By creating an account on our platform, you can submit a detailed description of the found item, including its type, color, size, and any distinguishing features. The more information you provide, the greater the chance of connecting the item with its rightful owner.
+                <br><br>
+                <strong>Report a Lost Item:</strong><br>
+                If you've lost something, simply create an account on iLost_n_Found and submit a detailed description of the lost item. You can provide information such as the item's type, color, size, and any distinguishing features. The more details you provide, the better chances of locating your lost item.
+                <br><br>
+                <strong>Search for a Lost Item:</strong><br>
+                If you've found an item or are looking for something you've lost, you can use our advanced search feature. Enter relevant keywords, such as the item's description or location where you found or lost it, and our system will display matching results. You can also filter the search results based on specific criteria to narrow down your search.
+                <br><br>
+                <strong>Connect with Owners or Finders:</strong><br>
+                Once a lost item is reported and matched with a found item, iLost_n_Found provides a secure and private messaging system to facilitate communication between the owner and the finder. You can exchange information, arrange for item return, and even express your gratitude for the reunion.
+                <br><br>
+                <strong>Safety and Security:</strong><br>
+                At iLost_n_Found, we prioritize the safety and privacy of our users. We do not share personal information publicly, and all communications between users are encrypted to ensure confidentiality. We also implement strict security measures to protect against fraudulent or malicious activities.
+                <br><br>
+            </p>
+        </div>
+    </section><!-- End About Section -->
+</main><!-- End #main -->
+{% endblock %}

@@ -1,0 +1,42 @@
+{% block tab_start %}
+    {% if block_name == "tab_start" %}
+
+<div class="vtabs">
+  <div class="row">
+      <!-- Tabs -->
+      <div class="col-md-3">
+        <ul class="nav nav-tabs left-tabs">
+            <li class="nav-item">
+            <a href="{{ url_for('dashboard') }}" class="nav-link {{ 'active' if active_page == 'dashboard' else '' }}">My Items</a>
+            </li>
+            <li class="nav-item">
+            <a href="{{ url_for('my_account') }}" class="nav-link {{ 'active' if active_page == 'my_account' else '' }}">My Account</a>
+            </li>
+            <li class="nav-item">
+            <a href="{{ url_for('change_password') }}" class="nav-link {{ 'active' if active_page == 'change_password' else '' }}">Change Password</a>
+            </li>
+            <li class="nav-item">
+            <a href="{{ url_for('logout') }}" class="nav-link {{ 'active' if active_page == 'logout' else '' }}">Logout</a>
+            </li>
+        </ul>
+      </div>
+
+      <!-- Tab contents -->
+      <div class="col-md-9">
+        <div class="container">
+          <div class="tab-content">
+            <div class="tab-pane active">
+    {% endif %}
+{% endblock %}
+
+{% block tab_end %}
+    {% if block_name == "tab_end" %}
+
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+    {% endif %}
+{% endblock %}

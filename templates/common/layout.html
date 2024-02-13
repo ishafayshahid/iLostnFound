@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title> {% block title %}  {% endblock %} - Lost & Found </title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{{url_for('static', filename='images/lost-found-home-banner.jpg')}}" rel="icon">
+  <link href="{{url_for('static', filename='images/lost-found-home-banner.jpg')}}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link rel="stylesheet" href="{{url_for('static', filename='assets/vendor/aos/aos.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='assets/vendor/bootstrap/css/bootstrap.min.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='assets/vendor/bootstrap-icons/bootstrap-icons.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='assets/vendor/glightbox/css/glightbox.min.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='assets/vendor/remixicon/remixicon.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='assets/vendor/swiper/swiper-bundle.min.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/b5vtabs.min.css')}}">
+
+  <!-- Template Main CSS File -->
+  <link rel="stylesheet" href="{{url_for('static', filename='assets/css/style.css')}}">
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+      <a href="/" class="logo d-flex align-items-center">
+        <img src="{{url_for('static', filename='images/lost-found-home-banner.jpg')}}" alt="">
+        <span>iLost_n_Found</span>
+      </a>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto" href="/#hero">Home</a></li>
+          <li><a class="nav-link {{ 'active' if active_page == 'about' else '' }}" href="{{ url_for('about') }}">About</a></li>
+
+          <li>
+            <a class="nav-link {{ 'active' if active_page == 'lost' else '' }}" href="{{ url_for('lost') }}">
+            Lost
+            </a>
+          </li>
+
+          <li>
+            <a class="nav-link {{ 'active' if active_page == 'found' else '' }}" href="{{ url_for('found') }}">
+            Found
+            </a>
+          </li>
+
+          {% if 'email' in session  %}
+          <li class="dropdown" >
+            <a class="getstarted" href="#getstarted"><span>My iLost_n_Found</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a class="{{ 'active' if active_page == 'dashboard' else '' }}" href="{{ url_for('dashboard') }}">My Item</a></li>
+              <li><a class="{{ 'active' if active_page == 'add_item' else '' }}" href="{{ url_for('add_item') }}">Add Item</a></li>
+              <li><a class="{{ 'active' if active_page == 'my_account' else '' }}" href="{{ url_for('my_account') }}">My Account</a></li>
+              <li><a class="{{ 'active' if active_page == 'change_password' else '' }}" href="{{ url_for('change_password') }}">Change Password</a></li>
+              <li><a class="{{ 'active' if active_page == 'logout' else '' }}" href="{{ url_for('logout') }}">Logout</a></li>
+            </ul>
+          </li>
+          {% else %}
+          <li>
+            <a class="nav-link {{ 'active' if active_page == 'signup' else '' }}" href="{{ url_for('signup') }}">
+            Signup
+            </a>
+          </li>
+
+          <li>
+            <a class="nav-link {{ 'active' if active_page == 'login' else '' }}" href="{{ url_for('login') }}">
+            Login
+            </a>
+          </li>
+          <a class="getstarted" href="{{ url_for('login', message='Please login first to add item lost/found items.') }}"><span>Add Lost/Found Items</span></a>
+          {% endif %}
+        </ul>
+        <i class="bi mobile-nav-toggle bi-list"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+
+  {% if active_page != 'home' %}
+  <!-- ======= Breadcrumbs ======= -->
+    <section class="breadcrumbs">
+      <div class="container">
+
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li>{{ ftitle(active_page) }}</li>
+        </ol>
+        <h2>{{ ftitle(active_page) }}</h2>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+  {% endif %}
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+        {% if 'success' in message %}
+          <div class="alert alert-success" role="alert">
+            <div class="container">
+              {{ message }}
+            </div>
+          </div>
+        {% else %}
+          <div class="alert alert-danger" role="alert">
+            <div class="container">
+              {{ message }}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+
+  {% block body %}
+
+  {% endblock %}
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row gy-4">
+          <div class="col-md-6 footer-info">
+            <a href="/" class="logo d-flex align-items-center">
+              <img src="{{url_for('static', filename='images/lost-found-home-banner.jpg')}}" alt="">
+              <span>iLost_n_Found</span>
+            </a>
+            <p>At iLost_n_Found, we understand how frustrating it can be to lose your personal belongings or find something without knowing whom it belongs to. That's why we created this platform—to connect lost items with their rightful owners and reunite people with their cherished possessions.</p>
+          </div>
+
+          <div class="col-md-6 footer-links align-self-end">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><i class="bi bi-chevron-right"></i> <a href="/">Home</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="{{ url_for('about') }}">About us</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="{{ url_for('lost') }}">Lost</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="{{ url_for('found') }}">Found</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="copyright">
+        <strong><span>iLost_n_Found</span></strong>
+      </div>
+      <div class="credits">
+        Designed by <a href="https://ishafayshahid.com/">Shafay Shahid</a>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{{url_for('static', filename='assets/vendor/purecounter/purecounter_vanilla.js')}}"></script>
+  <script src="{{url_for('static', filename='assets/vendor/aos/aos.js')}}"></script>
+  <script src="{{url_for('static', filename='assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+  <script src="{{url_for('static', filename='assets/vendor/glightbox/js/glightbox.min.js')}}"></script>
+  <script src="{{url_for('static', filename='assets/vendor/isotope-layout/isotope.pkgd.min.js')}}"></script>
+  <script src="{{url_for('static', filename='assets/vendor/swiper/swiper-bundle.min.js')}}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{{url_for('static', filename='assets/js/main.js')}}"></script>
+
+</body>
+
+</html>
+
+
+

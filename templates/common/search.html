@@ -1,0 +1,91 @@
+{% extends "common/layout.html" %}
+{% set active_page = 'search' %}
+
+{% block title %} Search {% endblock %}
+{% block body %}
+
+
+<main id="main">
+    <!-- ======= Search Item Section ======= -->
+    <section id="search_item" class="search-item recent-blog-posts">
+        <div class="container">
+            <div class="row">
+                <div class="search-form">
+                    <form action="/search" method="post">
+                        <input type="text" placeholder="Search" aria-label="Search" name="search" value="{{ keyword }}">
+                        <button type="submit"><i class="bi bi-search"></i></button>
+                    </form>
+                </div>
+            </div>
+
+            {% if lost_items %}
+            <div class="row">
+                <header class="section-header">
+                    <p>Lost Items</p>
+                    <hr class="border border-primary border-2">
+                </header>
+                {% for item in lost_items %}
+                <div class="col-lg-3 mb-4">
+                    <a href="{{ url_for('view_lost_n_found_item', item_type='lost', id=item.sno) }}">
+                        <div class="post-box">
+                            <div class="post-img">
+                                {% if item.ipic and item.ipic != "no_file" %}
+                                    <img src="{{ url_for('static', filename='uploads/' + item.ipic) }}" class="img-fluid" alt="{{ item.iname }}">
+                                {% else %}
+                                    <img src="{{url_for('static', filename='images/default-image.jpg')}}" class="img-fluid">
+                                {% endif %}
+                            </div>
+                            <div class="row">
+                                <div class="col post-date-loc text-start">{{ item.iloc }}</div>
+                                <div class="col post-date-loc text-end">{{ item.date_created.strftime("%a, %d %b %Y") }}</div>
+                            </div>
+                            <h3 class="post-title">{{ item.iname }}</h3>
+                            {% if session['email'] != item.uploader_email %}
+                                <a href="{{ url_for('claim_item', item_type='lost', id=item.sno) }}" class="readmore mt-auto"><span>It's Mine</span><i class="bi bi-arrow-right"></i></a>
+                            {% else %}
+                                <p>You can't claim your own item.</p>
+                            {% endif %}
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {% if found_items %}
+            <div class="row">
+                <header class="section-header">
+                    <p>Found Items</p>
+                    <hr class="border border-primary border-2">
+                </header>
+                {% for item in found_items %}
+                <div class="col-lg-3 mb-4">
+                    <a href="{{ url_for('view_lost_n_found_item', item_type='found', id=item.sno) }}">
+                        <div class="post-box">
+                            <div class="post-img">
+                                {% if item.ipic and item.ipic != "no_file" %}
+                                    <img src="{{ url_for('static', filename='uploads/' + item.ipic) }}" class="img-fluid" alt="{{ item.iname }}">
+                                {% else %}
+                                    <img src="{{url_for('static', filename='images/default-image.jpg')}}" class="img-fluid">
+                                {% endif %}
+                            </div>
+                            <div class="row">
+                                <div class="col post-date-loc text-start">{{ item.iloc }}</div>
+                                <div class="col post-date-loc text-end">{{ item.date_created.strftime("%a, %d %b %Y") }}</div>
+                            </div>
+                            <h3 class="post-title">{{ item.iname }}</h3>
+                            {% if session['email'] != item.uploader_email %}
+                                <a href="{{ url_for('claim_item', item_type='found', id=item.sno) }}" class="readmore mt-auto"><span>It's Mine</span><i class="bi bi-arrow-right"></i></a>
+                            {% else %}
+                                <p>You can't claim your own item.</p>
+                            {% endif %}
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </section><!-- End Search Item Section -->
+</main><!-- End #main -->
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends "common/layout.html" %}
+{% set active_page = 'my_account' %}
+
+{% block title %} My Account {% endblock %}
+{% block body %}
+
+<main id="main">
+    <!-- ======= My Account Section ======= -->
+    <section id="my_account" class="my-account contact">
+        <div class="container" data-aos="fade-up">
+        {% with block_name="tab_start" %}
+            {% include "account/account_tab.html" %}
+        {% endwith %}
+        <div class="row">
+
+          <div class="col-lg-12 mt-5 mt-lg-0 d-flex">
+            <div class="row align-self-center gy-4">
+              <form action="{{ request.path }}" method="post" class="php-email-form">
+                <div class="row gy-4">
+                    <div class="section-header ">
+                        <p>My Account</p>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">First Name</label>
+                        <input type="text" class="form-control" name="fname" value="{{ user.fname }}" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Last Name</label>
+                        <input type="text" class="form-control" name="lname" value="{{ user.lname }}" required>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" value="{{ user.email }}" readonly disabled>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label">Address</label>
+                        <input type="text" class="form-control" name="addr" value="{{ user.addr }}" required>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label">City</label>
+                        <input type="text" class="form-control" name="city" value="{{ user.city }}" required>
+                    </div>
+                    <div class="col-md-8">
+                        <label class="form-label">State</label>
+                        <input type="text" class="form-control" name="state" value="{{ user.state }}" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Zip</label>
+                        <input type="text" class="form-control" name="zip" value="{{ user.zip }}" required>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label">Facebook Link <i class="bi bi-facebook"></i></label>
+                        <input type="text" class="form-control" name="fb_link" value="{{ user.fb_link }}">
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label">Instagram Link <i class="bi bi-instagram"></i></label>
+                        <input type="text" class="form-control" name="ig_link" value="{{ user.ig_link }}">
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label">Twitter Link <i class="bi bi-twitter"></i></label>
+                        <input type="text" class="form-control" name="tw_link" value="{{ user.tw_link }}">
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <button type="submit" class="btn btn-dark">Update</button>
+                    </div>
+                </div>
+              </form>
+            </div>
+          </div>
+
+        </div> <!-- / row -->
+        {% with block_name="tab_end" %}
+            {% include "account/account_tab.html" %}
+        {% endwith %}
+      </div>
+    </section><!-- End My Account Section -->
+</main><!-- End #main -->
+
+{% endblock %}

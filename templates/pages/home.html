@@ -1,0 +1,155 @@
+{% extends "common/layout.html" %}
+{% set active_page = 'home' %}
+
+{% block title %} Home {% endblock %}
+{% block body %}
+
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="hero d-flex align-items-center contact">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 d-flex flex-column justify-content-center">
+        <h1 data-aos="fade-up">Discover the lost. Find the found.</h1>
+        <h2 data-aos="fade-up" data-aos-delay="400" class="mb-4">Reconnecting people with their lost and found treasures.</h2>
+        <div data-aos="fade-up" data-aos-delay="600">
+          <div class="search-form">
+            <form action="/search" method="post">
+              <input type="text" placeholder="Search" aria-label="Search" name="search">
+              <button type="submit"><i class="bi bi-search"></i></button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
+        <img src="{{url_for('static', filename='images/lost-found-home-banner.jpg')}}" class="rounded mx-auto d-block" alt="...">
+      </div>
+    </div>
+  </div>
+</section><!-- End Hero -->
+<main id="main">
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+
+      <div class="container" data-aos="fade-up">
+        <div class="row gx-0">
+
+          <div class="col-lg-6 d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="200">
+            <div class="content">
+              <h3>Who We Are</h3>
+              <h2>Our goal is to bring ecstatic happiness to people by reuniting them with their lost items of property.</h2>
+              <p>
+                At iLost_n_Found, we understand how frustrating it can be to lose your personal belongings or find something without knowing whom it belongs to. That's why we created this platform—to connect lost items with their rightful owners and reunite people with their cherished possessions.
+              </p>
+              <div class="text-center text-lg-start">
+                <a href="{{ url_for('about') }}" class="btn-read-more d-inline-flex align-items-center justify-content-center align-self-center">
+                  <span>Read More</span>
+                  <i class="bi bi-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
+            <img src="{{url_for('static', filename='images/about.jpg')}}" class="rounded mx-auto d-block" alt="...">
+          </div>
+
+        </div>
+      </div>
+
+    </section><!-- End About Section -->
+
+    <!-- ======= Values Section ======= -->
+    <section id="values" class="values">
+
+      <div class="container" data-aos="fade-up">
+
+        <header class="section-header">
+          <h2>Lost & Found</h2>
+          <p>Recover, Reunite, Rediscover: Lost and Found Made Easy</p>
+        </header>
+
+        <div class="row">
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="box">
+              <img src="{{url_for('static', filename='images/lost-something.jpg')}}" class="img-fluid" alt="">
+              <h3>Lost Something</h3>
+              <p>No worries! Just add the item to help find your lost belongings.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-6 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="400">
+            <div class="box">
+              <img src="{{url_for('static', filename='images/found-something.jpg')}}" class="img-fluid" alt="">
+              <h3>Found Something</h3>
+              <p>It's great to help someone retrieve their lost item.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section><!-- End Values Section -->
+
+    <!-- ======= Counts Section ======= -->
+    <section id="counts" class="counts">
+      <div class="container" data-aos="fade-up">
+        <div class="row gy-4">
+          <div class="col-lg-4">
+            <div class="count-box">
+              <i class="bi bi-emoji-frown"></i>
+              <div>
+                <span data-purecounter-start="0" data-purecounter-end="{{t_lost_items}}" data-purecounter-duration="1" class="purecounter"></span>
+                <p>Total Lost Item</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="count-box">
+              <i class="bi bi-basket3-fill" style="color: #ee6c20;"></i>
+              <div>
+                <span data-purecounter-start="0" data-purecounter-end="{{t_found_items}}" data-purecounter-duration="1" class="purecounter"></span>
+                <p>Total Found Items</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="count-box">
+              <i class="bi bi-people-fill" style="color: #bb0852;"></i>
+              <div>
+                <span data-purecounter-start="0" data-purecounter-end="{{t_users}}" data-purecounter-duration="1" class="purecounter"></span>
+                <p>Total Users</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- End Counts Section -->
+
+    <!-- ======= Clients Section ======= -->
+    <section id="clients" class="clients">
+
+      <div class="container" data-aos="fade-up">
+
+        <header class="section-header">
+          <h2></h2>
+          <p>Tools and Software Used</p>
+        </header>
+
+        <div class="clients-slider swiper">
+          <div class="swiper-wrapper align-items-center">
+            <div class="swiper-slide"><img src="{{url_for('static', filename='images/tools/bootstrap.png')}}" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="{{url_for('static', filename='images/tools/css.png')}}" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="{{url_for('static', filename='images/tools/flask.png')}}" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="{{url_for('static', filename='images/tools/html.png')}}" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="{{url_for('static', filename='images/tools/pycharm.png')}}" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="{{url_for('static', filename='images/tools/python.png')}}" class="img-fluid" alt=""></div>
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+
+    </section><!-- End Clients Section -->
+
+  </main><!-- End #main -->
+
+{% endblock %}
